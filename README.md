@@ -16,10 +16,10 @@ To run Todo App locally, follow the steps below:
 ### Installation
 
 1. Clone the repository to your local machine:
-git clone
+git clone skillforge_todoapp_submission
 
 2. Navigate to the project directory:
-cd 
+cd skillforge_todoapp_submission
 
 3. Fetch the project dependencies by running the following command:
 
