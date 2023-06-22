@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/database_helper.dart';
+import 'package:todo_app/models/todo.dart';
 
 class TodoListScreen extends StatefulWidget {
+  const TodoListScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TodoListScreenState createState() => _TodoListScreenState();
 }
 
 class _TodoListScreenState extends State<TodoListScreen> {
   List<Todo> todos = [];
-  DatabaseHelper _databaseHelper = DatabaseHelper();
+  final _databaseHelper = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
     _fetchTodos();
   }
+  // ignore: non_constant_identifier_names
+  Widget AddTodoScreen() {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddTodoScreen()),
+        );
+      },
+      child: const Text('Add Todo'),
+    );
+  }
+
 
   void _fetchTodos() async {
     List<Todo> fetchedTodos = await _databaseHelper.getTodos();
@@ -37,7 +55,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GetItDone'),
+        title: const Text('Todo app'),
       ),
       body: ListView.builder(
         itemCount: todos.length,

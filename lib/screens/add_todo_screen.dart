@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/database_helper.dart';
+import 'package:todo_app/models/todo.dart';
 
 class AddTodoScreen extends StatefulWidget {
   @override
@@ -9,6 +11,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   DatabaseHelper _databaseHelper = DatabaseHelper();
+  
 
   @override
   void dispose() {
@@ -16,6 +19,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     _descriptionController.dispose();
     super.dispose();
   }
+  
 
   void _saveTodo() async {
     // Get the entered values from the text controllers
@@ -31,7 +35,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
       description: description,
       isCompleted: false,
     );
-    
+
     await _databaseHelper.insert(newTodo);
 
     // Navigate back to the TodoListScreen

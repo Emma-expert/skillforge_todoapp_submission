@@ -3,7 +3,7 @@ class Todo {
   String title;
   String description;
   String status;
-  DateTime dueDate;
+  DateTime? dueDate;
   bool isCompleted;
 
   Todo({
@@ -14,12 +14,14 @@ class Todo {
     required this.dueDate,
     this.isCompleted = false,
   });
-  
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
       'description': description,
+      'duedate': dueDate,
+      'status': status,
       'isCompleted': isCompleted ? 1 : 0,
     };
   }
@@ -29,6 +31,8 @@ class Todo {
       id: map['id'],
       title: map['title'],
       description: map['description'],
+      dueDate: map['dueDate'] != null ? DateTime.parse(map['dueDate']) : null,
+      status: map['status'],
       isCompleted: map['isCompleted'] == 1,
     );
   }

@@ -1,11 +1,27 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'models/todo.dart';
 
 class DatabaseHelper {
+  static final DatabaseHelper _instance = DatabaseHelper.internal();
+  factory DatabaseHelper() => _instance;
+
+  // Rest of the DatabaseHelper implementation
+
+  DatabaseHelper.internal(); // Unnamed constructor
+  
+   Future<List<Todo>> getTodos() async {
+    final db = await database;
+    final result = await db.query('todos');
+    return result.map((json) => Todo.fromMap(json)).toList();
+  }
+  
   static final DatabaseHelper instance = DatabaseHelper._();
   static Database? _database;
 
   DatabaseHelper._();
+
+  
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -78,5 +94,4 @@ class DatabaseHelper {
       whereArgs: [id],
     );
   }
-
 }
