@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/database_helper.dart';
 import 'package:todo_app/models/todo.dart';
-import 'package:todo_app/todo_list_screen.dart';
+import 'package:todo_app/screens/add_todo_screen.dart';
 
-void main() => runApp(TodoApp());
+void main() => runApp(const TodoApp());
 
 class TodoApp extends StatelessWidget {
+  const TodoApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,13 +15,16 @@ class TodoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TodoListScreen(),
+      home: const TodoListScreen(),
     );
   }
 }
 
 class TodoListScreen extends StatefulWidget {
+  const TodoListScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TodoListScreenState createState() => _TodoListScreenState();
 }
 
@@ -28,13 +33,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo List'),
+        title: const Text('Todo List'),
       ),
       body: FutureBuilder<List<Todo>>(
         future: DatabaseHelper.instance.getAllTodos(),
         builder: (BuildContext context, AsyncSnapshot<List<Todo>> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -42,7 +47,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
           final todos = snapshot.data!;
 
           if (todos.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No todos found.'),
             );
           }
@@ -71,22 +76,10 @@ class _TodoListScreenState extends State<TodoListScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddTodoScreen()),
+            MaterialPageRoute(builder: (context) => const AddTodoScreen()),
           );
         },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo List'),
-      ),
-      body: Center(
-        child: Text('Todo list screen'),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -3,14 +3,17 @@ import 'package:todo_app/database_helper.dart';
 import 'package:todo_app/models/todo.dart';
 
 class AddTodoScreen extends StatefulWidget {
+  const AddTodoScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _AddTodoScreenState createState() => _AddTodoScreenState();
 }
 
 class _AddTodoScreenState extends State<AddTodoScreen> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  DatabaseHelper _databaseHelper = DatabaseHelper();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
   
 
   @override
@@ -19,7 +22,6 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     _descriptionController.dispose();
     super.dispose();
   }
-  
 
   void _saveTodo() async {
     // Get the entered values from the text controllers
@@ -33,12 +35,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
       id: DateTime.now().millisecondsSinceEpoch,
       title: title,
       description: description,
-      isCompleted: false,
+      isCompleted: false, dueDate: null, status: '',
     );
 
     await _databaseHelper.insert(newTodo);
 
     // Navigate back to the TodoListScreen
+    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 
@@ -46,30 +49,30 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Todo'),
+        title: const Text('Add Todo'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Title',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextField(
               controller: _descriptionController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Description',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _saveTodo,
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         ),
@@ -77,3 +80,5 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     );
   }
 }
+
+

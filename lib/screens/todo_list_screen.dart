@@ -81,7 +81,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
             ),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
